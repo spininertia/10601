@@ -4,18 +4,13 @@ function Pred_nb = nb_test( model, Xtest )
 num_test = size(Xtest, 1);
 prob = zeros(num_test, model.num_class);
 
+
 for i = 1:num_test
-    feature = Xtest(i, :);
+    feature = [Xtest(i, :) > 0; Xtest(i, :) == 0]';
     for j = 1:model.num_class
-        tmp = 0;
-        for k = 1:model.num_feature
-            if feature(k) > 0
-                tmp = tmp + log(model.posterior(k, j));
-            else
-                tmp = tmp + log(1 - model.posterior(k, j));
-            end
-        end
-        prob(i,j) = tmp + log(model.prior(j));
+        post = reshape(model.posterior(j, :, :), [model.num_feature, 2]);
+        post = sum(post .* feature, 2);
+        prob(i,j) = sum(log(post)) + log(model.prior(j));
     end
 end
 
