@@ -18,7 +18,7 @@ for i = 1:model.num_class
     count_y(i) = sum(logical);
     model.prior(i) = count_y(i) / model.num_sample;
     count_y_token(i) = sum(sum(Xtrain(logical, :)));
-    count_x_y = sum(Xtrain(logical, :));
+    count_x_y = sum(Xtrain(logical, :), 1);
     model.posterior(i, :, 1) = (count_x_y + model.alpha) /...
             (count_y_token(i) + model.num_feature * model.alpha);
     model.posterior(i, :, 2) = 1 - model.posterior(i, :, 1);

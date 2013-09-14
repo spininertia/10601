@@ -6,7 +6,7 @@ model.num_feature = size(Xtrain, 2);
 model.num_class = 2; 
 model.v = [];
 model.c = [];
-model.T = 10;
+model.T = 5;
 model.k = 1;
 
 v = zeros(1, model.num_feature);
@@ -29,7 +29,7 @@ for round = 1:model.T
 end
 model.c = [model.c; c];
 
-disp('model formed..')
+disp('perceptron formed..')
 
 end
 
