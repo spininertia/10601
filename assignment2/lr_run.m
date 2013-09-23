@@ -2,7 +2,7 @@ function lr_run( Xtrain, Ytrain, Xtest, Ytest )
 % train lr model and test the model on test set
 model = lr_train(Xtrain, Ytrain);
 Pred_lr = lr_test(model, Xtest);
-save('Pred_nb.mat', 'Pred_lr')
+save('Pred_lr.mat', 'Pred_lr')
 
 tp = sum((Pred_lr == 1) & (Ytest == 1));
 fp = sum((Pred_lr == 1) & (Ytest == 0));

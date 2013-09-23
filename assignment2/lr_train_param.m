@@ -1,18 +1,18 @@
-function model = lr_train( Xtrain, Ytrain)
+function model = lr_train_param( Xtrain, Ytrain, param)
 %LR_TRAIN Summary of this function goes here
 
 model.num_feature = size(Xtrain, 2);
-lambda = 2;
-alpha = 0.001;
 num_sample = size(Xtrain, 1);
-epsilon = 1e-1;
+epsilon = 1e-2;
+alpha = param.alpha;
+lambda = param.lambda;
 
 w = zeros(model.num_feature, 1);
 
 tmp_lcl = reg_lcl(Xtrain, Ytrain, w, lambda);
 disp(tmp_lcl)
 round = 1;
-while round < 1000
+while round < 500
     index = randperm(num_sample);
     for i = 1 : num_sample
         x = Xtrain(index(i), :);
@@ -35,4 +35,3 @@ model.alpha = alpha;
 model.lambda = lambda;
 
 end
-
